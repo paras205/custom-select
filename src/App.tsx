@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Select from "./Select";
+import { MyOptionType } from "./types";
+import { OnChangeValue } from "react-select";
 
-function App() {
+const options = [
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
+];
+
+const App: React.FC = () => {
+  const [selected, setSelected] = useState<MyOptionType[]>([]);
+  const handleChange = (val: OnChangeValue<MyOptionType, false>) => {
+    if (val) {
+      setSelected([...selected, val]);
+    }
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Select options={options} onChange={handleChange} />
     </div>
   );
-}
+};
 
 export default App;
